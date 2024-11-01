@@ -52,21 +52,11 @@ jobs:
         with:
           kustomize-version: "3.6.1"
 
-
-      - name: Listar arquivos no diretório raiz
-        run: |
-            ls -al
-
-      - name: Listar arquivos no diretório k8s
-        run: |
-             ls -al k8s/
-          
-
       - name: Atualizar imagem no kustomize
         env:
           COMMIT_SHA: ${{ github.sha }}
         run: |
-          cd k8s
+          cd ./k8s
           kustomize edit set image goserver=geyson12345/appargocd:${{ env.COMMIT_SHA }}
 
       - name: Configurar git para commit
