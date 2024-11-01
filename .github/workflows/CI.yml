@@ -1,6 +1,9 @@
+permissions:
+  contents: write
 name: C.I_C.D
 
 on:
+
   push:
     branches:
       - main
@@ -60,8 +63,10 @@ jobs:
             git config --local user.name "GitHub Action"
             git commit -am "Bump docker version"
 
-        - name: Push
-          uses:  github-actions-x/commit@v2
+        - name: Push da alteracao da imagem
+          uses:  stefanzweifel/git-auto-commit-action@v4
           with:
-            github_token: ${{ secrets.DOCKER_TOKEN }}
+            commit_message: "Atualização da versão da imagem Docker"
             branch: main
+            github_token: ${{ secrets.DOCKER_TOKEN }}
+
