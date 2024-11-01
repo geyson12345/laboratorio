@@ -57,14 +57,15 @@ jobs:
           COMMIT_SHA: ${{ github.sha }}
         run: |
           cd k8s
-          kustomize edit set image goserver=geyson12345/appargocd:${{ env.COMMIT_SHA }} --reorder
-          cat kustomization.yaml
+          kustomize edit set image goserver=geyson12345/appargocd:${{ env.COMMIT_SHA }}
+          cat kustomization.yaml  # Exibir o conteúdo após alteração para verificar
 
       - name: Configurar git para commit
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git commit -am "Bump docker version"
+          git push origin main  # Fazendo push das alterações
 
       - name: Commit e Push da alteração
         uses: stefanzweifel/git-auto-commit-action@v4
