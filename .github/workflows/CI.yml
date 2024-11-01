@@ -51,9 +51,16 @@ jobs:
         uses: imranismail/setup-kustomize@v1
         with:
           kustomize-version: "3.6.1"
-      - name: Listar arquivos para verificação
+
+
+      - name: Listar arquivos no diretório raiz
         run: |
-            ls -al k8s/    
+            ls -al
+
+      - name: Listar arquivos no diretório k8s
+        run: |
+             ls -al k8s/
+          
 
       - name: Atualizar imagem no kustomize
         env:
