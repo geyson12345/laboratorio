@@ -61,7 +61,7 @@ jobs:
             git commit -am "Bump docker version"
 
         - name: Push
-          uses:  ad-m/github-push-action@v0.6.0
+          uses:  github-actions-x/commit@v2
           with:
             github_token: ${{ secrets.DOCKER_TOKEN }}
-            repository: geyson12345/laboratorio
+            branch: main
