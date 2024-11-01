@@ -56,8 +56,9 @@ jobs:
         env:
           COMMIT_SHA: ${{ github.sha }}
         run: |
-          cd ./k8s
-          kustomize edit set image goserver=geyson12345/appargocd:${{ env.COMMIT_SHA }}
+          cd k8s
+          kustomize edit set image goserver=geyson12345/appargocd:${{ env.COMMIT_SHA }} --reorder
+          cat kustomization.yaml
 
       - name: Configurar git para commit
         run: |
