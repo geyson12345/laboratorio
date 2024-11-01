@@ -3,7 +3,6 @@ permissions:
 name: C.I_C.D
 
 on:
-
   push:
     branches:
       - main
@@ -41,32 +40,34 @@ jobs:
           docker push geyson12345/appargocd:latest
 
   deploy:
-      name: Deploy
-      runs-on: ubuntu-latest
-      needs: build
-      steps:
-        - name: checkout
-          uses: actions/checkout@v3
+    name: Deploy
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v3
 
-        - name: kustomize
-          uses: imranismail/setup-kustomize@v1
-          with:
-            kustomize-version: "3.6.1"
-        - name: update k8s
-          run: |
-              cd k8s
-              kustomize edit set image goserver=$DOCKER_USERNAME/appargocd:${{ env.COMMIT_SHA }}
+      - name: Setup Kustomize
+        uses: imranismail/setup-kustomize@v1
+        with:
+          kustomize-version: "3.6.1"
 
-        - name: Commit
-          run: |
-            git config --local user.email "action@github.com"
-            git config --local user.name "GitHub Action"
-            git commit -am "Bump docker version"
+      - name: Atualizar imagem no kustomize
+        env:
+          COMMIT_SHA: ${{ github.sha }}
+        run: |
+          cd k8s
+          kustomize edit set image goserver=geyson12345/appargocd:${{ env.COMMIT_SHA }}
 
-        - name: Push da alteracao da imagem
-          uses:  stefanzweifel/git-auto-commit-action@v4
-          with:
-            commit_message: "Atualização da versão da imagem Docker"
-            branch: main
-            github_token: ${{ secrets.DOCKER_TOKEN }}
+      - name: Configurar git para commit
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git commit -am "Bump docker version"
 
+      - name: Commit e Push da alteração
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "Atualização da versão da imagem Docker"
+          branch: main
+          github_token: ${{ secrets.DOCKER_TOKEN }}
