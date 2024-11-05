@@ -10,7 +10,7 @@ public class MensagemTexto {
     public String hello(){
          String msg= "Criando sua pepilene usando Jenkins com Git e Docke e";
          String parte = "Deploy no Kubernet - Geyson - teste da aplicação EKS  ---  C.I e C.D !!! --" +
-                 " TUDO AUTOMATICO   --------    GEYSON CD automatico....."  ;
+                 " TUDO AUTOMATICO   --------    GEYSON CD automatico..... TTTT"  ;
         return msg + "  " + parte;
     }
 
