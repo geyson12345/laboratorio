@@ -8,4 +8,4 @@ namespace: goserver
 images:
 - name: goserver
   newName: geyson12345/appargocd
-  newTag: 490e4357cdfdfb1b154c6a9763cc0a66954fbc56
+  newTag: 2635f6b4f89ccea1344612c6f1c876186acd58d9
